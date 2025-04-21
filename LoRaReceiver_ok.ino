@@ -1,8 +1,11 @@
 #include <SPI.h>
 #include <LoRa.h>
+int buzzer = 3;
+bool a = 0;
 
 void setup() {
   Serial.begin(9600);
+  pinMode(buzzer, OUTPUT);
   while (!Serial)
     ;
 
@@ -28,10 +31,25 @@ void loop() {
       if (c != '\r') {
         Serial.print(c);
       }
+      a = 1;
     }
-
     // print RSSI of packet
     Serial.print("' with RSSI ");
     Serial.println(LoRa.packetRssi());
+  }
+  if (a) {
+    digitalWrite(buzzer, HIGH);
+    delay(1000);
+    digitalWrite(buzzer, LOW);
+    delay(1000);
+    digitalWrite(buzzer, HIGH);
+    delay(1000);
+    digitalWrite(buzzer, LOW);
+    delay(1000);
+    digitalWrite(buzzer, HIGH);
+    delay(1000);
+    digitalWrite(buzzer, LOW);
+    delay(1000);
+    a = 0;
   }
 }
